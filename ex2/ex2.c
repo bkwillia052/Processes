@@ -5,10 +5,25 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 int main(void)
 {
-    // Your code here 
+    FILE *fp;
+
+    fp = fopen("text.txt", "w");
+    int pid = fork();
+    if (pid < 0) {    // fork failed; exit
+        printf("fork failed\n");
+        exit(1);
+    } else if (pid == 0) {
+        printf("Hello from the Child\n");
+    } else {
+        wait(NULL);
+        printf("Hello from the Parent");
+    }
+
+    close(fp);
     
     return 0;
 }
