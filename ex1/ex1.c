@@ -5,10 +5,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+
 
 int main(void)
 {
     // Your code here
+    int x = 100;
+    int pid = fork();
+    if (pid < 0) {    // fork failed; exit
+        printf("fork failed\n");
+        exit(1);
+    } else if (pid == 0) {
+        printf("Child: ");
+        printf("%d\n", x);
+        x = 20;
+        printf("%d\n", x);
+    } else {
+        wait(pid);
+        printf("Parent: ");
+        printf("%d\n", x);
+    }
 
     return 0;
+
 }
