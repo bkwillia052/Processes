@@ -9,21 +9,21 @@
 
 int main(void)
 {
-    FILE *fp;
+   FILE * fp;
 
     fp = fopen("text.txt", "w");
-    int pid = fork();
-    if (pid < 0) {    // fork failed; exit
-        printf("fork failed\n");
+    int rc = fork();
+    if (rc < 0) {    // fork failed; exit
+        fprintf(stderr, "fork failed\n");
         exit(1);
-    } else if (pid == 0) {
-        printf("Hello from the Child\n");
+    } else if (rc == 0) {
+        fprintf(fp, "%s", "Hello from the Child\n");
     } else {
         wait(NULL);
-        printf("Hello from the Parent");
+        fprintf(fp, "%s", "Hello from the Parent");
     }
 
-    close(fp);
+    fclose(fp);
     
     return 0;
 }

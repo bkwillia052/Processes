@@ -24,7 +24,7 @@ int main(void)
         x = 20;
         printf("%d\n", x);
     } else {
-        wait(pid);
+        wait(NULL);
         printf("Parent: ");
         printf("%d\n", x);
     }
